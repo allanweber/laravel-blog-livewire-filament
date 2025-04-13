@@ -1,8 +1,8 @@
 <header class="flex items-center justify-between py-3 px-6 border-b border-gray-100">
     <div id="header-left" class="flex items-center">
-        <div class="text-gray-800 font-semibold">
-            <span class="text-yellow-500 text-xl">&lt;YELO&gt;</span> Code
-        </div>
+        <a wire:navigate href="{{ route('home') }}">
+            <x-application-logo />
+        </a>
         <div class="top-menu ml-10">
             <ul class="flex space-x-4">
                 <li>
@@ -46,18 +46,18 @@
     <div id="header-right" class="flex items-center md:space-x-6">
         @guest
             <div class="flex space-x-5">
-                <a class="flex space-x-2 items-center hover:text-yellow-500 text-sm text-gray-500"
+                <a wire:navigate class="flex space-x-2 items-center hover:text-yellow-500 text-sm text-gray-500"
                     href="http://127.0.0.1:8000/login">
                     Login
                 </a>
-                <a class="flex space-x-2 items-center hover:text-yellow-500 text-sm text-gray-500"
+                <a wire:navigate class="flex space-x-2 items-center hover:text-yellow-500 text-sm text-gray-500"
                     href="http://127.0.0.1:8000/register">
                     Register
                 </a>
             </div>
         @endguest
 
-        @auth()
+        @auth
             <!-- Settings Dropdown -->
             <div class="ms-3 relative">
                 <x-dropdown align="right" width="48">

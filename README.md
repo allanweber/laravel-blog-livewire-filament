@@ -30,9 +30,15 @@ php artisan migrate
 
 php artisan db:seed
 
-# Check data in database    
+# Check data in database
 
 php artisan tinker
 
 App\Models\Post::count();
+
+
+# -i is for invocable controller
+php artisan make:controller HomeController -i
+
+php artisan make:component Posts/PostCard --view
 ```
