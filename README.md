@@ -36,9 +36,11 @@ php artisan tinker
 
 App\Models\Post::count();
 
-
 # -i is for invocable controller
 php artisan make:controller HomeController -i
 
 php artisan make:component Posts/PostCard --view
+
+# For storage:
+php artisan storage:link
 ```
