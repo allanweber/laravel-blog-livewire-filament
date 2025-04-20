@@ -43,4 +43,6 @@ php artisan make:component Posts/PostCard --view
 
 # For storage:
 php artisan storage:link
+
+php artisan make:livewire PostList
 ```
