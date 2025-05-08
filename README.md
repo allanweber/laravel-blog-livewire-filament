@@ -15,6 +15,16 @@
 - [ ] Comments
 - [ ] Likes
 
+# Project setup
+
+```bash
+composer install
+npm install
+php artisan migrate
+php artisan db:seed
+composer run dev
+```
+
 ## Commands executed
 
 ```bash
