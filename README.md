@@ -45,4 +45,8 @@ php artisan make:component Posts/PostCard --view
 php artisan storage:link
 
 php artisan make:livewire PostList
+
+php artisan make:filament-resource Category
+
+php artisan make:filament-resource Post --soft-deletes
 ```
