@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ColorPicker;
-
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
+use Filament\Tables\Columns\TextColumn;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -25,7 +27,14 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->required()->minLength(1)->maxLength(150),
+                TextInput::make('title')
+                ->live()->debounce(500)
+                ->required()->minLength(1)->maxLength(150)
+                ->afterStateUpdated(function (string $operation, string $state, Set $set) {
+                    if($operation === 'create') {
+                        $set('slug', Str::slug($state));
+                    }
+                }),
                 TextInput::make('slug')->required()->minLength(1)->maxLength(150)->unique(ignoreRecord: true),
                 ColorPicker::make('text_color')->nullable(),
                 ColorPicker::make('bg_color')->nullable(),
@@ -36,7 +45,10 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('slug')->sortable()->searchable(),
+                TextColumn::make('text_color')->sortable()->searchable(),
+                TextColumn::make('bg_color')->sortable()->searchable(),
             ])
             ->filters([
                 //

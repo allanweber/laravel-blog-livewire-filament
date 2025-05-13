@@ -7,16 +7,42 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'slug',
+        'image',
+        'body',
+        'published_at',
+        'featured',
+    ];
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return null;
+        }
+        
+        return Storage::url($this->image);
+    }
 
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     public function scopePublished($query)
