@@ -31,8 +31,10 @@ class Post extends Model
         if (!$this->image) {
             return null;
         }
-        
-        return Storage::url($this->image);
+
+        $isUrl = str_contains($this->image, 'http');
+
+        return $isUrl ? $this->image : Storage::url($this->image);
     }
 
     public function author()
@@ -48,6 +50,13 @@ class Post extends Model
     public function scopePublished($query)
     {
         return $query->where('published_at', '<=', Carbon::now());
+    }
+
+    public function scopeWithCategory($query, string $category)
+    {
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category);
+        });
     }
 
     public function scopeFeatured($query)
@@ -71,5 +80,12 @@ class Post extends Model
     {
         $minutes = round(str_word_count(strip_tags($this->body)) / 250);
         return ($minutes == 0) ? 1 : $minutes;
+    }
+
+    public function getThumbnailImage()
+    {
+        $isUrl = str_contains($this->image, 'http');
+
+        return $isUrl ? $this->image : Storage::disk('public')->url($this->image);
     }
 }

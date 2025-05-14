@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +20,24 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'image' => fake()->imageUrl(),
+            // 'image' => fake()->imageUrl(),
             'title' => fake()->sentence(),
             'slug' => fake()->slug(3),
             'body' => fake()->paragraph(10),
-            'published_at' => fake()->dateTimeBetween('-1 week', '+1 week'),
+            'published_at' => fake()->dateTimeBetween('-1 week', '-1 day'),
             'featured' => fake()->boolean(10),
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function ($post) {
+            $post->categories()->attach(
+                Category::inRandomOrder()->first()->id
+            );
+        });
     }
 }

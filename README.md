@@ -36,7 +36,7 @@ php artisan make:model Category -m -f
 
 php artisan make:migration create_category_post_table
 
-php artisan migrate
+php artisan migrate --seed
 
 php artisan db:seed
 
@@ -59,4 +59,6 @@ php artisan make:livewire PostList
 php artisan make:filament-resource Category
 
 php artisan make:filament-resource Post --soft-deletes
+
+php artisan make:component Badge --view
 ```

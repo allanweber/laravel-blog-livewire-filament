@@ -1,6 +1,16 @@
 <div class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
         <div>
+            @if ($this->activeCategory || $search)
+                <button class="text-gray-500 py-4" wire:click="clearFilters"
+                wire:click="clearFilters"
+                >X</button>
+            @endif
+            @if ($this->activeCategory)
+                <x-badge wire:navigate href="{{ request()->fullUrlWithQuery(['category' => $this->activeCategory->slug]) }}" :bgColor="$this->activeCategory->bg_color" :textColor="$this->activeCategory->text_color">
+                    {{ $this->activeCategory->title }}
+                </x-badge>
+            @endif
             @if ($search)
                 <h1 class="text-2xl font-bold">Search results for: {{ $search }}</h1>
             @endif
