@@ -12,7 +12,7 @@
                 </x-badge>
             @endif
             @if ($search)
-                <h1 class="text-2xl font-bold">Search results for: {{ $search }}</h1>
+                <span class="ml-2">containing: <strong>{{ $search }}</strong></span>
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">

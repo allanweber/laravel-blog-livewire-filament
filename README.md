@@ -61,4 +61,8 @@ php artisan make:filament-resource Category
 php artisan make:filament-resource Post --soft-deletes
 
 php artisan make:component Badge --view
+
+php artisan make:migration create_post_like_table
+
+php artisan livewire:make LikeButton
 ```
