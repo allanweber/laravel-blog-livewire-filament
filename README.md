@@ -65,4 +65,6 @@ php artisan make:component Badge --view
 php artisan make:migration create_post_like_table
 
 php artisan livewire:make LikeButton
+
+php artisan make:view posts/show
 ```
